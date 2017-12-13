@@ -48,6 +48,10 @@ public class CollectorTest {
 
         int totalCalories = menu.stream()
                 .collect(Collectors.summingInt(Dish::getCalories));
+
+        IntSummaryStatistics menuStatistics = menu.stream()
+                .collect(Collectors.summarizingInt(Dish::getCalories));
+        System.out.println(menuStatistics);
     }
 }
 
