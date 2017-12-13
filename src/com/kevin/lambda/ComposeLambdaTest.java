@@ -1,3 +1,5 @@
+package com.kevin.lambda;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -5,8 +7,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
- * @class: ComposeLambdaTest
- * @package: PACKAGE_NAME
+ * @class: com.kevin.lambda.ComposeLambdaTest
+ * @package: com.kevin.lambda
  * @author: kevin[wangqi2017@xinhua.org]
  * @date: 2017/12/12 16:37
  * @version: 1.0

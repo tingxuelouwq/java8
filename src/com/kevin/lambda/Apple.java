@@ -1,6 +1,8 @@
+package com.kevin.lambda;
+
 /**
  * @class: Apple
- * @package: PACKAGE_NAME
+ * @package: com.kevin.lambda
  * @author: kevin[wangqi2017@xinhua.org]
  * @date: 2017/12/12 16:46
  * @version: 1.0
