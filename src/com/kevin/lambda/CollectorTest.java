@@ -2,6 +2,7 @@ package com.kevin.lambda;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * @class: CollectorTest
@@ -52,6 +53,101 @@ public class CollectorTest {
         IntSummaryStatistics menuStatistics = menu.stream()
                 .collect(Collectors.summarizingInt(Dish::getCalories));
         System.out.println(menuStatistics);
+
+        String shortMenu = menu.stream()
+                .map(Dish::getName)
+                .collect(Collectors.joining(",", "\"", "\""));
+        System.out.println(shortMenu);
+
+        totalCalories = menu.stream()
+                .collect(Collectors.reducing(0, Dish::getCalories, Integer::sum));
+        System.out.println(totalCalories);
+
+        mostCalorieDish = menu.stream()
+                .collect(Collectors.reducing((d1, d2) -> d1.getCalories() > d2.getCalories() ? d1 : d2));
+
+        Map<Dish.Type, List<Dish>> dishesByType = menu.stream()
+                .collect(Collectors.groupingBy(Dish::getType));
+
+        Map<CaloricLevel, List<Dish>> dishesByCaloricLevel = menu.stream()
+                .collect(Collectors.groupingBy(dish -> {
+                    if (dish.getCalories() <= 400) {
+                        return CaloricLevel.DIET;
+                    } else if (dish.getCalories() <= 700) {
+                        return CaloricLevel.NORMAL;
+                    } else {
+                        return CaloricLevel.FAT;
+                    }
+                }));
+
+        Map<Dish.Type, Map<CaloricLevel, List<Dish>>> dishesByTypeCaloricLevel =
+                menu.stream().collect(Collectors.groupingBy(Dish::getType,
+                        Collectors.groupingBy(dish -> {
+                            if (dish.getCalories() <= 400) {
+                                return CaloricLevel.DIET;
+                            } else if (dish.getCalories() <= 700) {
+                                return CaloricLevel.NORMAL;
+                            } else {
+                                return CaloricLevel.FAT;
+                            }
+                        }))
+                );
+
+        Map<Dish.Type, Optional<Dish>> mostCaloricByType = menu.stream()
+                .collect(Collectors.groupingBy(
+                        Dish::getType,
+                        Collectors.maxBy(Comparator.comparingInt(Dish::getCalories))
+                ));
+
+        Map<Dish.Type, Long> typesCount = menu.stream()
+                .collect(Collectors.groupingBy(Dish::getType,
+                        Collectors.counting()));
+
+        Map<Dish.Type, Optional<Dish>> mostCaloricByType2 = menu.stream()
+                .collect(Collectors.groupingBy(
+                        Dish::getType,
+                        Collectors.maxBy(Comparator.comparingInt(Dish::getCalories))
+                ));
+
+        Map<Dish.Type, Dish> mostCaloricByType3 = menu.stream()
+                .collect(Collectors.groupingBy(Dish::getType,
+                        Collectors.collectingAndThen(
+                                Collectors.maxBy(Comparator.comparingInt(Dish::getCalories)),
+                                Optional::get
+                        )));
+
+        Map<Dish.Type, Set<CaloricLevel>> caloricLevelsByType = menu.stream()
+                .collect(Collectors.groupingBy(Dish::getType,
+                        Collectors.mapping(dish -> {
+                            if (dish.getCalories() <= 400) {
+                                return CaloricLevel.DIET;
+                            } else if (dish.getCalories() <= 700) {
+                                return CaloricLevel.NORMAL;
+                            } else {
+                                return CaloricLevel.FAT;
+                            }
+                        }, Collectors.toCollection(HashSet::new))));
+
+        Map<Boolean, List<Dish>> partitionMenu = menu.stream()
+                .collect(Collectors.partitioningBy(Dish::isVegetarion));
+
+        Map<Boolean, Map<Dish.Type, List<Dish>>> vegeratianDishesByType =
+                menu.stream().collect(
+                        Collectors.partitioningBy(Dish::isVegetarion,
+                                Collectors.groupingBy(Dish::getType))
+                );
+    }
+
+    private static boolean isPrime(int candidate) {
+        int candidateRoot = (int) Math.sqrt(candidate);
+        return IntStream.rangeClosed(2, candidateRoot).noneMatch(i -> candidate % i == 0);
+    }
+
+    private static Map<Boolean, List<Integer>> partitionPrimes(int n) {
+        return IntStream.rangeClosed(2, n).boxed()
+                .collect(
+                        Collectors.partitioningBy(candidate -> isPrime(candidate))
+                );
     }
 }
 
