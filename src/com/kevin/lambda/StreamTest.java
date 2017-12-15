@@ -71,6 +71,12 @@ public class StreamTest {
         List<Dish> vegetarianDishes = menu.stream()
                 .filter(Dish::isVegetarion)
                 .collect(Collectors.toList());
+
+        List<Dish> dishes2 = menu.stream().collect(
+                ArrayList::new, // supplier
+                ArrayList::add, // accumulator
+                List::addAll    // combiner
+        );
     }
 }
 

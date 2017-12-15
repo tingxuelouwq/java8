@@ -40,4 +40,14 @@ public class Dish {
     public Type getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "Dish{" +
+                "name='" + name + '\'' +
+                ", vegetarion=" + vegetarion +
+                ", calories=" + calories +
+                ", type=" + type +
+                '}';
+    }
 }
