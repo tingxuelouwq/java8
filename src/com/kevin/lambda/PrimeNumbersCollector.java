@@ -5,6 +5,7 @@ import java.util.function.*;
 import java.util.stream.Collector;
 import java.util.stream.IntStream;
 import static java.util.stream.Collectors.*;
+import static java.util.stream.Collector.Characteristics.*;
 
 /**
  * @class: PrimeNumbersCollector
@@ -18,16 +19,21 @@ public class PrimeNumbersCollector implements Collector<Integer,
         Map<Boolean, List<Integer>>,
         Map<Boolean, List<Integer>>> {
 
+    public Map<Boolean, List<Integer>> partitionPrimesWithCustomCollector(int n) {
+        return IntStream.rangeClosed(2, n).boxed()
+                .collect(new PrimeNumbersCollector());
+    }
+
     public Map<Boolean, List<Integer>> partitionPrimes(int n) {
         return IntStream.rangeClosed(2, n).boxed()
                 .collect(partitioningBy(candidate -> isPrime(candidate)));
     }
 
-//    private boolean isPrime(Integer candidate) {
-//        int candidateRoot = (int) Math.sqrt(candidate);
-//        return IntStream.rangeClosed(2, candidateRoot)
-//                .noneMatch(i -> candidate % i == 0);
-//    }
+    private boolean isPrime(Integer candidate) {
+        int candidateRoot = (int) Math.sqrt(candidate);
+        return IntStream.rangeClosed(2, candidateRoot)
+                .noneMatch(i -> candidate % i == 0);
+    }
 
 //    public static boolean isPrime(List<Integer> primes, int candidate) {
 //        return primes.stream().noneMatch(i -> candidate % i == 0);
@@ -71,16 +77,20 @@ public class PrimeNumbersCollector implements Collector<Integer,
 
     @Override
     public BinaryOperator<Map<Boolean, List<Integer>>> combiner() {
-        return null;
+        return (Map<Boolean, List<Integer>> map1, Map<Boolean, List<Integer>> map2) -> {
+            map1.get(true).addAll(map2.get(true));
+            map1.get(false).addAll(map2.get(false));
+            return map1;
+        };
     }
 
     @Override
     public Function<Map<Boolean, List<Integer>>, Map<Boolean, List<Integer>>> finisher() {
-        return null;
+        return Function.identity();
     }
 
     @Override
     public Set<Characteristics> characteristics() {
-        return null;
+        return Collections.unmodifiableSet(EnumSet.of(IDENTITY_FINISH));
     }
 }
