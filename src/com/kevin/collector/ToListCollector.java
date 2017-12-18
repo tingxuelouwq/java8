@@ -1,4 +1,6 @@
-package com.kevin.lambda;
+package com.kevin.collector;
+
+import com.kevin.entity.Dish;
 
 import java.util.*;
 import java.util.function.BiConsumer;

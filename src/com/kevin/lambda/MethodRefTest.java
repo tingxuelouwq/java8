@@ -1,5 +1,7 @@
 package com.kevin.lambda;
 
+import com.kevin.entity.Apple;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.*;
@@ -34,21 +36,21 @@ public class MethodRefTest {
         boolean flag = contains.test(str, "A");
         System.out.println(flag);
 
-//        Supplier<com.kevin.lambda.Apple> supplier = () -> new com.kevin.lambda.Apple();
-//        Supplier<com.kevin.lambda.Apple> supplier = new Supplier<com.kevin.lambda.Apple>() {
+//        Supplier<com.kevin.entity.Apple> supplier = () -> new com.kevin.entity.Apple();
+//        Supplier<com.kevin.entity.Apple> supplier = new Supplier<com.kevin.entity.Apple>() {
 //            @Override
-//            public com.kevin.lambda.Apple get() {
-//                return new com.kevin.lambda.Apple();
+//            public com.kevin.entity.Apple get() {
+//                return new com.kevin.entity.Apple();
 //            }
 //        }
         Supplier<Apple> supplier = Apple::new;
         Apple apple = supplier.get();
 
-//        IntFunction<com.kevin.lambda.Apple> f = (weight) -> new com.kevin.lambda.Apple(weight);
+//        IntFunction<com.kevin.entity.Apple> f = (weight) -> new com.kevin.entity.Apple(weight);
         IntFunction<Apple> f = Apple::new;
         Apple anotherApple = f.apply(70);
 
-//        BiFunction<Integer, String, com.kevin.lambda.Apple> bf = (weight, color) -> new com.kevin.lambda.Apple(weight, color);
+//        BiFunction<Integer, String, com.kevin.entity.Apple> bf = (weight, color) -> new com.kevin.entity.Apple(weight, color);
         BiFunction<Integer, String, Apple> bf = Apple::new;
         Apple yetAnotherApple = bf.apply(70, "red");
 

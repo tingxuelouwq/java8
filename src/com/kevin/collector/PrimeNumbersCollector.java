@@ -1,4 +1,4 @@
-package com.kevin.lambda;
+package com.kevin.collector;
 
 import java.util.*;
 import java.util.function.*;

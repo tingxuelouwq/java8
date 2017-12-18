@@ -1,4 +1,4 @@
-package com.kevin.lambda;
+package com.kevin.entity;
 
 /**
  * @enum: CaloricLevel

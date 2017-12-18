@@ -1,4 +1,6 @@
-package com.kevin.lambda;
+package com.kevin.stream;
+
+import com.kevin.entity.Dish;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,7 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * @class: com.kevin.lambda.StreamTest
+ * @class: com.kevin.stream.StreamTest
  * @package: PACKAGE_NAME
  * @author: kevin[wangqi2017@xinhua.org]
  * @date: 2017/12/12 21:58

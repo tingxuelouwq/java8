@@ -1,4 +1,4 @@
-package com.kevin.lambda;
+package com.kevin.stream;
 
 import java.io.IOException;
 import java.nio.file.Files;

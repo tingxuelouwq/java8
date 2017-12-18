@@ -1,4 +1,9 @@
-package com.kevin.lambda;
+package com.kevin.collector;
+
+import com.kevin.entity.CaloricLevel;
+import com.kevin.entity.Currency;
+import com.kevin.entity.Dish;
+import com.kevin.entity.Transaction;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -19,7 +24,7 @@ public class CollectorTest {
         List<Transaction> transactions = new ArrayList<>();
 
         for (Transaction t : transactions) {
-            Currency currency = t.getCurrency();
+            com.kevin.entity.Currency currency = t.getCurrency();
             List<Transaction> tmp = transactionsByCurrencies.get(currency);
             if (tmp == null) {
                 tmp = new ArrayList<>();
@@ -28,7 +33,7 @@ public class CollectorTest {
             tmp.add(t);
         }
 
-        Map<Currency, List<Transaction>> transactionsGroupByCurrency =
+        Map<com.kevin.entity.Currency, List<Transaction>> transactionsGroupByCurrency =
                 transactions.stream().collect(Collectors.groupingBy(Transaction::getCurrency));
 
         List<Dish> menu = Arrays.asList(new Dish("pork", false, 800, Dish.Type.MEAT),

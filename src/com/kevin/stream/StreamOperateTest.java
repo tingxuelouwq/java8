@@ -1,4 +1,6 @@
-package com.kevin.lambda;
+package com.kevin.stream;
+
+import com.kevin.entity.Dish;
 
 import java.util.Arrays;
 import java.util.List;
