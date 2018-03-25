@@ -20,9 +20,21 @@ public class FilteringApples {
                 new Apple(155, "green"),
                 new Apple(120, "red"));
 
-
+        // [Apple{weight=80, color='green'}, Apple{weight=155, color='green'}]
         List<Apple> greenApples = filterApples(inventory, FilteringApples::isGreenApple);
         System.out.println(greenApples);
+
+        // [Apple{weight=155, color='green'}]
+        List<Apple> heavyApples = filterApples(inventory, FilteringApples::isHeavyApple);
+        System.out.println(heavyApples);
+
+        // [Apple{weight=80, color='green'}, Apple{weight=155, color='green'}]
+        List<Apple> greenApples2 = filterApples(inventory, (Apple a) -> "green".equals(a.getColor()));
+        System.out.println(greenApples2);
+
+        // [Apple{weight=155, color='green'}]
+        List<Apple> heavyApples2 = filterApples(inventory, (Apple a) -> a.getWeight() > 150);
+        System.out.println(heavyApples2);
     }
 
     public static List<Apple> filterGreenAples(List<Apple> inventory) {
@@ -63,7 +75,7 @@ public class FilteringApples {
         return result;
     }
 
-    public static class Apple {
+    static class Apple {
         private int weight = 0;
         private String color = "";
 
@@ -86,6 +98,14 @@ public class FilteringApples {
 
         public void setColor(String color) {
             this.color = color;
+        }
+
+        @Override
+        public String toString() {
+            return "Apple{" +
+                    "weight=" + weight +
+                    ", color='" + color + '\'' +
+                    '}';
         }
     }
 }
