@@ -1,4 +1,4 @@
-package com.kevin.cha8;
+package com.kevin.chap8;
 
 import org.junit.Test;
 

@@ -1,6 +1,5 @@
-package com.kevin.cha8;
+package com.kevin.chap8;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
