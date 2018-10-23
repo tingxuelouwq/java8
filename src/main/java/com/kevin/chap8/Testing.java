@@ -1,7 +1,6 @@
-package main.java.com.kevin.chap8;
+package com.kevin.chap8;
 
 import org.junit.Test;
-import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -10,7 +9,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @类名: Testing
