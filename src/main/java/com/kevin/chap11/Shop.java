@@ -1,8 +1,6 @@
 package com.kevin.chap11;
 
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 
 import static com.kevin.chap11.Util.delay;
 
@@ -10,7 +8,7 @@ import static com.kevin.chap11.Util.delay;
  * 类名: Shop<br/>
  * 包名：com.kevin.chap11<br/>
  * 作者：kevin[wangqi2017@xinhua.org]<br/>
- * 时间：2018/10/22 17:02<br/>
+ * 时间：2018/10/24 11:17<br/>
  * 版本：1.0<br/>
  * 描述：<br/>
  */
@@ -21,24 +19,22 @@ public class Shop {
 
     public Shop(String name) {
         this.name = name;
-        this.random = new Random(name.charAt(0) * name.charAt(1) * name.charAt(2));
+        random = new Random(name.charAt(0) * name.charAt(1) * name.charAt(2));
     }
 
-    public double getPrice(String product) {
-        return calculatePrice(product);
+    public String getPrice(String prodcut) {
+        double price = calculatePrice(prodcut);
+        Discount.Code code = Discount.Code.values()[
+                random.nextInt(Discount.Code.values().length)];
+        return String.format("%s:%.2f:%s", name, price, code);
     }
 
-    public Future<Double> getPriceAsync(String product) {
-        CompletableFuture<Double> futurePrice = new CompletableFuture<>();
-        new Thread(() -> {
-            double price = calculatePrice(product);
-            futurePrice.complete(price);
-        }).start();
-        return futurePrice;
-    }
-
-    private double calculatePrice(String product) {
+    public double calculatePrice(String product) {
         delay();
         return random.nextDouble() * product.charAt(0) + product.charAt(1);
+    }
+
+    public String getName() {
+        return name;
     }
 }

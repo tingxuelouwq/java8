@@ -1,5 +1,7 @@
 package com.kevin.chap11;
 
+import java.util.Random;
+
 /**
  * 类名: Util<br/>
  * 包名：com.kevin.chap11<br/>
@@ -10,8 +12,19 @@ package com.kevin.chap11;
  */
 public class Util {
 
+    private static final Random random = new Random();
+
     public static void delay() {
         int delay = 1000;
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void randomDelay() {
+        int delay = 500 + random.nextInt(2000);
         try {
             Thread.sleep(delay);
         } catch (InterruptedException e) {
