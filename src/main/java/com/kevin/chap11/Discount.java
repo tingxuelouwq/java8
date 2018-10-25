@@ -1,6 +1,7 @@
 package com.kevin.chap11;
 
 import static com.kevin.chap11.Util.delay;
+import static com.kevin.chap11.Util.randomDelay;
 
 /**
  * 类名: Discount<br/>
@@ -28,7 +29,8 @@ public class Discount {
     }
 
     private static double apply(double price, Code code) {
-        delay();
+//        delay();
+        randomDelay();
         return price * (100 - code.percentage) / 100;
     }
 }

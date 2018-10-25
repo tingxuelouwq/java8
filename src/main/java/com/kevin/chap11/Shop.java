@@ -3,6 +3,7 @@ package com.kevin.chap11;
 import java.util.Random;
 
 import static com.kevin.chap11.Util.delay;
+import static com.kevin.chap11.Util.randomDelay;
 
 /**
  * 类名: Shop<br/>
@@ -30,7 +31,8 @@ public class Shop {
     }
 
     public double calculatePrice(String product) {
-        delay();
+//        delay();
+        randomDelay();
         return random.nextDouble() * product.charAt(0) + product.charAt(1);
     }
 
