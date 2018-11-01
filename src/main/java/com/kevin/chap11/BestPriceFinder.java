@@ -63,7 +63,7 @@ public class BestPriceFinder {
                         .map(future -> future.thenApply(Quote::parse))
                         .map(future -> future.thenCompose(quote ->
                                 CompletableFuture.supplyAsync(() ->
-                                        Discount.applyDiscount(quote), executor)))
+                                        Discount.applyDiscount(quote))))
                         .collect(Collectors.toList());
         return priceFutures.stream()
                 .map(CompletableFuture::join)

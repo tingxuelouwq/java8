@@ -47,8 +47,8 @@ public class Shop {
 
     private double calculatePrice(String product) {
         delay();
-        throw new RuntimeException("product not available");
-//        return random.nextDouble() * product.charAt(0) + product.charAt(1);
+//        throw new RuntimeException("product not available");
+        return random.nextDouble() * product.charAt(0) + product.charAt(1);
     }
 
     public String getName() {
