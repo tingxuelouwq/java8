@@ -2,9 +2,8 @@ package com.kevin.chap12;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.Month;
+import java.time.*;
+import java.time.temporal.ChronoField;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -49,5 +48,39 @@ public class DateTimeExample {
         int len = date.lengthOfMonth(); // 31 (days in March)
         boolean leap = date.isLeapYear();   // false (not a leap year)
         System.out.println(date);   // 2014-03-18
+
+        int y = date.get(ChronoField.YEAR);
+        int m = date.get(ChronoField.MONTH_OF_YEAR);
+        int d = date.get(ChronoField.DAY_OF_MONTH);
+
+        LocalTime time = LocalTime.of(13, 45, 20);  // 13:45:20
+        int hour = time.getHour();  // 13
+        int minute =time.getMinute();   // 45
+        int second = time.getSecond();  // 20
+        System.out.println(time);
+
+        int _h = time.get(ChronoField.HOUR_OF_DAY);
+        int _m = time.get(ChronoField.MINUTE_OF_HOUR);
+        int _s = time.get(ChronoField.SECOND_OF_MINUTE);
+
+        LocalDateTime dt1 = LocalDateTime.of(2014, 3, 18, 13, 45, 20);
+        LocalDateTime dt2 = LocalDateTime.of(date, time);
+        LocalDateTime dt3 = date.atTime(13, 45, 20);
+        LocalDateTime dt4 = date.atTime(time);
+        LocalDateTime dt5 = time.atDate(date);
+        System.out.println(dt1);
+
+        LocalDate date1 = dt1.toLocalDate();
+        System.out.println(date1);
+        LocalTime time1 = dt1.toLocalTime();
+        System.out.println(time1);
+
+        Instant instant = Instant.ofEpochSecond(44 * 365 * 86400);
+        Instant now = Instant.now();
+
+        Duration d1 = Duration.between(LocalTime.of(13, 45, 10), time);
+        Duration d2 = Duration.between(instant, now);
+        System.out.println(d1.getSeconds());
+        System.out.println(d2.getSeconds());
     }
 }
