@@ -3,6 +3,8 @@ package com.kevin.chap12;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.*;
+import java.time.chrono.JapaneseChronology;
+import java.time.chrono.JapaneseDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.*;
@@ -192,33 +194,32 @@ public class DateTimeExample {
     }
 
     private static void useZone() {
-        // 罗马时间2014-03-18 00:00:00
         ZoneId romeZone = ZoneId.of("Europe/Rome");
         LocalDate date = LocalDate.of(2014, 3, 18);
         ZonedDateTime zdt1 = date.atStartOfDay(romeZone);
-        System.out.println(zdt1);
+        System.out.println(zdt1);   // 2014-03-18T00:00+01:00[Europe/Rome]
 
-        // 罗马时间2014-03-18 13:45:00
         LocalDateTime dateTime = LocalDateTime.of(2014, 3, 18, 13, 45);
         ZonedDateTime zdt2 = dateTime.atZone(romeZone);
-        System.out.println(zdt2);
+        System.out.println(zdt2);   // 2014-03-18T13:45+01:00[Europe/Rome]
 
-        // 将当前时间转换成罗马时间
         Instant instant = Instant.now();
         ZonedDateTime zdt3 = instant.atZone(romeZone);
-        System.out.println(zdt3);
+        System.out.println(zdt3);   // 2018-11-06T13:38:05.448+01:00[Europe/Rome]
 
-        // 将当前时间转换成罗马时间
+        // 将本地时间转换成对应的罗马时间
         LocalDateTime timeFromInstant = LocalDateTime.ofInstant(instant, romeZone);
-        System.out.println(timeFromInstant);
+        System.out.println(timeFromInstant);    // 2018-11-06T13:38:05.448
 
-        // 将罗马时间转换成格林威治时间
+        // 将罗马时间转换成对应的本地时间
         Instant instantFromDateTime = dateTime.atZone(romeZone).toInstant();
-        System.out.println(instantFromDateTime);
+        System.out.println(instantFromDateTime);    // 2014-03-18T12:45:00Z
 
         ZoneOffset newYorkOffset = ZoneOffset.of("-05:00");
         OffsetDateTime dateTimeInNewYork = OffsetDateTime.of(dateTime, newYorkOffset);
-        System.out.println(dateTimeInNewYork);
+        System.out.println(dateTimeInNewYork);  // 2014-03-18T13:45-05:00
 
+        JapaneseDate japaneseDate = JapaneseDate.from(date);
+        System.out.println(japaneseDate.toString());
     }
 }
