@@ -4,9 +4,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.*;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import static java.time.temporal.TemporalAdjusters.lastDayOfMonth;
 import static java.time.temporal.TemporalAdjusters.nextOrSame;
@@ -30,7 +32,9 @@ public class DateTimeExample {
     public static void main(String[] args) {
 //        useOldDate();
 //        useLocalDate();
-        useTemporalAdjuster();
+//        useTemporalAdjuster();
+//        useDateFormatter();
+        useZone();
     }
 
     private static void useOldDate() {
@@ -170,5 +174,51 @@ public class DateTimeExample {
     private static void useDateFormatter() {
         LocalDate date = LocalDate.of(2014, 3, 18);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        System.out.println(formatter.format(date)); // 18/03/2014
+        System.out.println(date.format(formatter)); // 18/03/2014
+
+        date = LocalDate.parse("18/03/2014", formatter);
+        System.out.println(date);
+
+        DateTimeFormatter complexFormatter = new DateTimeFormatterBuilder()
+                .appendText(ChronoField.DAY_OF_MONTH)
+                .appendLiteral(". ")
+                .appendText(ChronoField.MONTH_OF_YEAR)
+                .appendLiteral(" ")
+                .appendText(ChronoField.YEAR)
+                .parseCaseInsensitive()
+                .toFormatter(Locale.US);
+        System.out.println(date.format(complexFormatter));  //18. March 2014
+    }
+
+    private static void useZone() {
+        // 罗马时间2014-03-18 00:00:00
+        ZoneId romeZone = ZoneId.of("Europe/Rome");
+        LocalDate date = LocalDate.of(2014, 3, 18);
+        ZonedDateTime zdt1 = date.atStartOfDay(romeZone);
+        System.out.println(zdt1);
+
+        // 罗马时间2014-03-18 13:45:00
+        LocalDateTime dateTime = LocalDateTime.of(2014, 3, 18, 13, 45);
+        ZonedDateTime zdt2 = dateTime.atZone(romeZone);
+        System.out.println(zdt2);
+
+        // 将当前时间转换成罗马时间
+        Instant instant = Instant.now();
+        ZonedDateTime zdt3 = instant.atZone(romeZone);
+        System.out.println(zdt3);
+
+        // 将当前时间转换成罗马时间
+        LocalDateTime timeFromInstant = LocalDateTime.ofInstant(instant, romeZone);
+        System.out.println(timeFromInstant);
+
+        // 将罗马时间转换成格林威治时间
+        Instant instantFromDateTime = dateTime.atZone(romeZone).toInstant();
+        System.out.println(instantFromDateTime);
+
+        ZoneOffset newYorkOffset = ZoneOffset.of("-05:00");
+        OffsetDateTime dateTimeInNewYork = OffsetDateTime.of(dateTime, newYorkOffset);
+        System.out.println(dateTimeInNewYork);
+
     }
 }
